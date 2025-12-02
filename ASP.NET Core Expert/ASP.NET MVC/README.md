@@ -196,3 +196,12 @@ public ActionResult Index(){
     return View(new {  });
 }
 ```
+
+# Models
+
+Representa os objetos do mundo real.
+No MVC um modelo pode ser um conjunto de informações de diversos objetos em um só, esse conceito
+é chamado de DTO (Data Transfer Object) que são muito utilizados para diminuir o número de requisições
+no servidor.
+
+**Só é possível usar uma model por View**
