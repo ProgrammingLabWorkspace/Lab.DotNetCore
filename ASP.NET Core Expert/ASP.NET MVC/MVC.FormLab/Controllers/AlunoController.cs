@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MVC.FormLab.Models;
 
 namespace MVC.FormLab.Controllers
@@ -12,27 +13,58 @@ namespace MVC.FormLab.Controllers
             DbContext = context;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var alunos = await DbContext.Alunos.ToListAsync();
+
+            return View(alunos);
+        }
+
+        public async Task<IActionResult> Detalhes(int id)
+        {
+            var aluno = await ObterAluno(id);
+
+            return View(aluno);
         }
 
         [HttpGet]
-        public IActionResult Criar()
+        public async Task<IActionResult> Criar()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Criar([Bind("Nome,DataNascimento,Email,EmailConfirmacao,Avaliacao")]Aluno aluno)
+        public async Task<IActionResult> Criar([Bind("Nome,DataNascimento,Email,EmailConfirmacao,Ativo")]Aluno aluno)
         {
-            //TODO: Configurar Entity Framework
-
             DbContext.Alunos.Add(aluno);
             await DbContext.SaveChangesAsync();
 
             return View();
+        }
+
+        public async Task<Aluno?> ObterAluno(int id)
+        {
+            return await DbContext.Alunos.FirstOrDefaultAsync(a => a.Id == id);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Editar(int id)
+        {
+            var aluno = await ObterAluno(id);
+
+            return View(aluno);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Editar([Bind("Id,Nome,DataNascimento,Email,EmailConfirmacao,Ativo")] Aluno aluno)
+        {
+            DbContext.Alunos.Update(aluno);
+            await DbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Aluno>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.Nome) @*Mostra o nome da propriedade*@
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.DataNascimento) @*Mostra o nome da propriedade*@
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Email) @*Mostra o nome da propriedade*@
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Ativo) @*Mostra o nome da propriedade*@
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach (var aluno in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => aluno.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => aluno.DataNascimento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => aluno.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => aluno.Ativo)
+                    </td>
+                    <td>
+                        <a asp-action="Detalhes" asp-route-id="@aluno.Id">
+                            Detalhes
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Editar" asp-route-id="@aluno.Id">
+                            Editar
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

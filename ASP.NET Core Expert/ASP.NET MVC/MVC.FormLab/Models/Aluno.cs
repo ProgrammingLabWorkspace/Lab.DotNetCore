@@ -15,7 +15,7 @@ namespace MVC.FormLab.Models
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [DataType(DataType.Date, ErrorMessage = "O campo {0} está em formato incorreto")]
-        [Display(Name = "Nome")]
+        [Display(Name = "Data Nascimento")]
         public DateTime DataNascimento { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]

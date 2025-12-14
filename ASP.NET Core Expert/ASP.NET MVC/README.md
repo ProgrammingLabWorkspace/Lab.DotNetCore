@@ -287,6 +287,25 @@ O exemplo acima faz com que o form submeta os dados para a Action Create.
 
 Podemos fazer um comparativo com o Angular ou React, onde usamos tags customizadas.
 
+### Outros Exemplos
+
+Mostra o nome da propriedade (valor atribuido ao Annotation Display).
+```
+@Html.DisplayNameFor(m => m.Nome); @*Mostra o nome da propriedade*@
+```
+
+Mostra o valor de uma propriedade
+```
+@Html.DisplayFor(m => aluno.Nome)
+``
+
+
+Passando parâmetros de rotas via link (tag a)
+```
+<a asp-action="Detalhes" asp-route-id="@aluno.Id">
+```
+O que vem depois do "asp-route-" é o nome do parâmetro.
+
 ## Views de configuração
 
 Diretórios
