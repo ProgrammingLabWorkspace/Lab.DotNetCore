@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVC.FormLab.Models
 {
+    [Table("Alunos")]
     public class Aluno
     {
         [Key]
@@ -29,6 +30,6 @@ namespace MVC.FormLab.Models
         [NotMapped]
         public string? EmailConfirmacao { get; set; }
 
-        public bool Ativo { get; set; }
+        public bool Ativo { get; set; } = true;
     }
 }

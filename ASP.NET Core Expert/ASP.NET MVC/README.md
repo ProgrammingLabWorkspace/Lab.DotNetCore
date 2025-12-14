@@ -152,6 +152,8 @@ public class TesteController : Controller {
 [HttpPost("novo")]
 public ActionResult Create([Bind("Id,Nome,Email")] Aluno aluno);
 ```
+**O bind é util para especificar quais campos precisam ser enviados para a controller, evitando que seja enviado um dado que não precisa ser adicionado/alterado.**
+
 
 ```
 [HttpPost("novo")]
@@ -432,6 +434,8 @@ Precisamos instalar dois pacotes do EF:
 - Microsoft.EntityFrameworkCore; (a versão deve ser compatível com a versão do .NET);
 - Microsoft.EntityFrameworkCore.SqlServer; (a versão deve ser compatível com a versão do .NET);
     - Se estiver usando outro gerenciador de banco de dados, deve-se procurar o pacote correspondente ao SGDB utilizado.
+- Microsoft.EntityFrameworkCore.Tools; (a versão deve ser compatível com a versão do .NET);
+    - Permite usar commandos no Package Manager Console, como Add-Migration.
 
 Depois, deve-se criar a classe que irá estender de DbContext:
 
