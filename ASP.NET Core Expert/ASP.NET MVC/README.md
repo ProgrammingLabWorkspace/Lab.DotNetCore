@@ -528,3 +528,17 @@ Há uma tabela que é gerada pelas migrations e que gerencia as versões das mig
 Deve-se versionar as migrations
 
 Uma forma de reverter uma migration é retornar para a versão anterior da migration que queremos defazer a ação.
+
+# Trabalhando com vários ambientes
+
+No Razor, podemos utilizar a seguinte sintaxe para trabalhar com vários ambientes:
+
+```
+ @* Inclui recursos para o ambiente de desenvolvimento *@
+ <environment include="Development">
+ </environment>
+
+ @* Exclui recursos para o ambiente de desenvolvimento *@
+ <environment exclude="Development">
+ </environment>
+```
