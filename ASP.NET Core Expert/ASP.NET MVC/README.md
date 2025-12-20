@@ -558,3 +558,9 @@ No Razor, podemos utilizar a seguinte sintaxe para trabalhar com vários ambient
  <environment exclude="Development">
  </environment>
 ```
+
+# Scaffold
+
+Gera código prontos para ajudar na produtividade.
+
+Não se esqueça: não faz sentido perder produtividade com algo que existe para te ajudar na produtividade.
