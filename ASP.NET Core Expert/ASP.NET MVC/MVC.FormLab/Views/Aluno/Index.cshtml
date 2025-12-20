@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<Aluno>
 
+<a class="btn btn-info" asp-action="Criar">
+    Cadastrar
+</a>
+
 <table class="table">
     <thead>
         <tr>
@@ -15,7 +19,6 @@
             <th>
                 @Html.DisplayNameFor(m => m.Ativo) @*Mostra o nome da propriedade*@
             </th>
-            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -38,13 +41,14 @@
                         @Html.DisplayFor(m => aluno.Ativo)
                     </td>
                     <td>
-                        <a asp-action="Detalhes" asp-route-id="@aluno.Id">
-                            Detalhes
+                        <a class="btn btn-info" asp-action="Detalhes" asp-route-id="@aluno.Id">
+                            <i class="fa fa-search"></i>
                         </a>
-                    </td>
-                    <td>
-                        <a asp-action="Editar" asp-route-id="@aluno.Id">
-                            Editar
+                        <a class="btn btn-warning" asp-action="Editar" asp-route-id="@aluno.Id">
+                            <i class="fa fa-pencil-alt"></i>
+                        </a>
+                        <a class="btn btn-danger" asp-action="Excluir" asp-route-id="@aluno.Id">
+                            <i class="fa fa-trash"></i>
                         </a>
                     </td>
                 </tr>
