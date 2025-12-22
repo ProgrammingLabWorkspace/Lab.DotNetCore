@@ -30,3 +30,26 @@
 - 2020 - Angular 10 e 11;
 
 As versões estão saindo a cada 6 meses.
+
+## Versionamento
+
+- O Angular utiliza Semantic Versioning;
+    - 2.3.1
+        - 2: major - breaking changes;
+            - Pode haver quebra da versão anterior.
+        - 3: minor - new features, not breaking;
+            - Ganho de novas funcionalidades e elas não quebram a versão.
+        - 1: patch - bugfixes, not breaking.
+
+| Releases | Frequência |
+|----------|------------|
+| Major "1.x.x" | A cada 6 meses |
+| Minor "x.1.x" | De 1 a 3 a cada major release |
+| Patch "x.x.1" | Quase todas as semanas |
+
+| Previews | |
+| ---------|--|
+| Beta | Em fase de desenvolvimento e testes. É identificável como por ex: "10.0.0-beta.0". |
+| Release Candidate | Desenvolvimento completo e em testes finais. É identificável como por ex: "10.1.10-rc". | 
+
+
