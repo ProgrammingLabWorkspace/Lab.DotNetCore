@@ -69,4 +69,57 @@ Componente = Template + Class + Metadado.
 - Precisa ter instalado o Node e o NPM;
 - Instalar o Angular CLI;
     - `npm install -g @angular/cli`
+    
 
+## Componentes
+
+No Angular, todo componente possui a seguinte declaração:
+
+```
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-componente-teste',
+  imports: [],
+  templateUrl: './componente-teste.html',
+  styleUrl: './componente-teste.css',
+})
+export class ComponenteTeste {
+
+}
+```
+
+### Criando componente
+
+Rodar o comando: `ng generate component ComponenteTeste`;
+- Versão abreviada: `ng g c NomeComponente`
+
+
+## Módulo
+
+Comando: `ng g module Funcionalidade`
+
+### Estrutura:
+
+```
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@NgModule({
+  declarations: [
+    // Seus componentes
+  ],
+  imports: [
+    // Seus módulos
+    CommonModule
+  ],
+  providers: [
+    // seus serviços
+  ]
+})
+export class FuncionalidadeModule { }
+```
+
+## Services
+
+Comando: `ng g service Servico`
