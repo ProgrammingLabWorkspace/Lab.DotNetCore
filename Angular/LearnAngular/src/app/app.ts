@@ -36,6 +36,17 @@ export class User {
     <li>{{os.name}}</li>
   }
   </ul>
+
+  <div [contentEditable]="isDivEditable"></div>
+
+  <button (click)="greet()">
+    Clique aqui!
+  </button>
+
+    <section (mouseover)="showSecretMessage()" (mouseout)="hideSecretMessage()">
+      There's a secret message for you, hover to reveal 👀
+      {{ message }}
+    </section>
   `,
   styles: `
     :host {
@@ -59,6 +70,21 @@ export class App {
     {
       id: "linux",
       name: "Linux"
-    },  
+    },
   ]
+  isDivEditable: boolean = false;
+
+  message:string = "";
+
+  greet() {
+    alert("Hello, there!");
+  }
+
+  showSecretMessage(){
+    this.message = "oloko";
+  }
+
+  hideSecretMessage(){
+    this.message = "";
+  }
 }

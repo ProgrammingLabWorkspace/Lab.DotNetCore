@@ -235,6 +235,45 @@ export class App {
 }
 ```
 
+
+
+
+### Binding de propriedades
+
+Para permitir que uma propriedade seja dinâmica, utilize a seguinte sintaxe:
+
+`<div [contentEditable]="false"></div>`
+
+Basta colocar colchetes na propriedade, conforme mostrado no exemplo acima. Fazendo isso, é possível fazer o seguinte:
+
+```
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  styleUrls: ['app.css'],
+  template: ` <div [contentEditable]="isEditable"></div> `,
+})
+export class App {
+  isEditable = true;
+}
+```
+
+Agora o `contentEditable` define o seu valor conforme a variável `isEditable`.
+
+### Eventos
+
+É possível atribuir funções para eventos através da seguinte sintaxe:
+
+```
+ <button (click)="greet()">
+    Clique aqui!
+  </button>
+
+```
+
+Coloque entre parênteses o evento. Exemplo: `(click)`. **Se atentar que o nome dos eventos são um pouco diferentes do usados diretamente no HTML.**
+
 ## Módulo
 
 Comando: `ng g module Funcionalidade`
