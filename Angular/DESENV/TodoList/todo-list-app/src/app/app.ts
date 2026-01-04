@@ -34,4 +34,14 @@ export class App {
 
     this.todoList = [...this.todoList, todoItem];
   }
+
+  onDeleteClick(id: string) : void {
+    const item = this.todoList.find(item => item.id === id);
+
+    const confirmDelete = confirm(`Deseja remover o item: ${item!.title}?`);
+
+    if(!confirmDelete) return;
+
+    this.todoList = this.todoList.filter(item => item.id !== id);
+  }
 }
