@@ -55,6 +55,16 @@ export class User {
     </section>
 
     <app-child (incrementCountEvent)="onCount($event)" />
+
+    @defer {
+      <p>This is deferred content!</p>
+    }
+    @placeholder {
+      <p>This is placeholder content!</p>
+    }
+    @loading (minimum 2s) {
+      <p>Loading</p>
+    }
   `,
   styles: `
     :host {
