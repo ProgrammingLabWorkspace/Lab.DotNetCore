@@ -342,6 +342,105 @@ Na classe pai basta fazer a seguinte invocação:
 - Todas as vezes que o `emit` de `incrementCountEvent` for invocado, `onCount` será chamado e receberá o valor de `count` como parâmetro;
 
 
+### Template
+
+Todo componente utiliza um template que consiste em código HTML. 
+
+#### Controle do carregamento e da renderização condicional do template
+
+É possível controlar quando partes do template são carregadas e renderizadas por meio dos blocos `@defer`, `@loading` e `@placeholder`.
+
+`@defer` -> define um bloco de conteúdo cuja carga e renderização são adiadas, ocorrendo somente quando uma condição ou gatilho é satisfeito (por exemplo, `on viewport`, `on interaction` ou `when`). Os gatilhos do `@defer` são avaliados durante a renderização do template do componente pai e determinam quando o conteúdo deferido será carregado e inserido no DOM.
+  - `on viewport` -> será carregado quando ele entrar na área visível da tela. Se estiver na parte inferior da tela, só é carregado quando o usuário scrola até a região do bloco (visibilidade). Só é invocado se a janela de visualização estiver na região que o bloco @defer foi declarado, isto é, visível.
+      - **`on viewport` observa o local do @defer, não o ciclo de vida do componente pai.**;
+
+  - `on interaction` -> será carregado após uma interação do usuário;
+    - Normalmente, a interação é feita através de um elemento declarado no bloco `@placeholder`;
+    - Interações disponíveis: `click`, `focus`, `keydown`, `pointerdown` e `touchstart` (mouse, teclado e toque);
+      - Ex:
+        ```
+        @defer (on interaction) {
+          <app-comments />
+        } @placeholder {
+          <button>Mostrar comentários</button>
+        }
+        ```
+     
+
+  - `when` -> será carregado quando uma expressão booleana se tornar verdadeira.
+Exemplos:
+```
+@defer (on viewport) {
+  <app-chart />
+}
+
+@defer (on interaction) {
+  <app-comments />
+}
+
+@defer (when isLoggedIn) {
+  <app-dashboard />
+}
+
+@defer (on viewport; when isReady) {
+  <app-heavy />
+}
+```
+
+
+`@placeholder` -> define um conteúdo leve que é renderizado imediatamente, enquanto o conteúdo do @defer ainda não foi carregado.
+
+`@loading` -> define um conteúdo exibido durante o carregamento do conteúdo deferido, caso esse carregamento não seja imediato.
+
+Exemplo de uso:
+
+```
+@Component({
+  selector: 'app-root',
+  template: `
+    @defer {
+      <p>This is deferred content!</p>
+    }
+    @placeholder {
+      <p>This is placeholder content!</p>
+    }
+    @loading (minimum 2s) {
+      <p>Loading</p>
+    }
+  `,
+})
+```
+
+# Otimização de imagem
+
+- Deve-se utilizar o `NgOptimizedImage`;
+  `import { NgOptimizedImage } from '@angular/common';`
+- Adicionar como import no @Component:
+  ```
+  @Component({  imports: [NgOptimizedImage],  ...})
+  ```
+- Então, agora deve-se utilizar a propriedade `ngSrc` no elemento `img`:
+  - `<img ngSrc="/assets/logo.svg" alt="Angular logo" width="32" height="32" />`
+- Obs: o `NgOptimizedImage` exige que seja informado a altura (height) e largura (width)
+  - Se não for possível informar uma altura e largura, então adicione a propriedade `fill`:
+   ```
+   <div class="image-container"> //Container div has 'position: "relative"'  <img ngSrc="www.example.com/image.png" fill /></div>
+   ```
+   Obs: Para o `fill` funcionar, o elemento pai deve ter o `position` definido como `relative`, `fixed` ou `absolute`;
+
+## Prioridade
+`<img ngSrc="www.example.com/image.png" height="600" width="800" priority />`
+- Indica que a imagem é crítica e deve ser carregada o mais cedo possível;
+- A imagem começa a ser baixada antes mesmo de chegar ao img;
+  - `<link rel="preload" as="image">` -> esse código é injetado no `<head>`;
+
+## Image loader
+
+É possível definir um `image loader` para especificar a URL base e, dessa forma, colocar apenas o nome da imagem no atributo `ngSrc`;
+`providers: [provideImgixLoader('https://my.base.url/')];` -> colocar no @Component;
+`<img ngSrc="image.png" height="600" width="800" />` -> agora não precisa colocar a URL completa.
+
+
 
 ## Módulo
 

@@ -1,10 +1,13 @@
 import { Component, input, signal } from '@angular/core';
 import { Child } from './child/child';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-user',
+  imports: [NgOptimizedImage],
   template: ` 
     @if(isLoggedIn){
+      <img ngSrc="https://ew.com/thmb/hXirYe4etmhfJbmU5dL9d0tXF3c=/2000x0/filters:no_upscale():max_bytes(150000):strip_icc()/saving-private-ryan-matt-damon-060524-1-27570d4206364916891172e478add38c.jpg" alt="Angular logo" width="250" height="250" />
       <p>
         Username: {{ username }} - Occupation: {{occupation()}}
       </p>      
