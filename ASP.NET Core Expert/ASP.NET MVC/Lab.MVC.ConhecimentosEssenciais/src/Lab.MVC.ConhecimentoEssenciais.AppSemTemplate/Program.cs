@@ -1,8 +1,19 @@
 ﻿using Lab.MVC.AppSemTemplate.Data;
 using Lab.MVC.AppSemTemplate.Extensions;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+//builder.Services.Configure<RazorViewEngineOptions>(opt =>
+//{
+//    opt.AreaViewLocationFormats.Clear();
+//    opt.AreaViewLocationFormats.Add("/Modulos/{2}/Views/{1}/{0}.cshtml");
+//    opt.AreaViewLocationFormats.Add("/Modulos/{2}/Views/Shared/{0}.cshtml");
+//    opt.AreaViewLocationFormats.Add("/Modulos/Shared/{0}.cshtml");
+//});
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.")));
 
@@ -35,7 +46,14 @@ app.UseRouting();
 
 app.MapControllerRoute(
     name: "default",
+    pattern: "{area=exists}/{controller=Home}/{action=Index}/{id?}"
+);
+
+app.MapControllerRoute(
+    name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
 );
+
+
 
 app.Run();

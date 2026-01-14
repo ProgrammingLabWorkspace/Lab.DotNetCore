@@ -764,3 +764,35 @@ Utilizar o seguinte trecho:
 ```
 - Adicione o namespace em _ViewImports.cshtml. Ex: `@addTagHelper *,  Lab.MVC.AppSemTemplate``;
 
+# Area
+
+- Maneira de organizar uma aplicação MVC em grupos funcionais menores, cada um com seu próprio conjunto de Models, Views e Controllers.
+- Nova estrutura MVC dentro da aplicação ASP.NET MVC;
+- Tomar cuidado ao usar, pois pode gerar complexidade;
+- Pode ser criado via scaffolding, através de `Commom -> MVC AREA`
+    - Será criado uma pasta Areas, contendo toda estrutura MVC;
+    -   Após rodar o comando, será necessário configurar a Area no program.cs, especificando o mapeamento da rota.
+
+        - Ex: ```
+                app.MapControllerRoute(
+                    name: "default",
+                    pattern: "{area=exists}/{controller=Home}/{action=Index}/{id?}"
+                    );
+           ```
+        - Na controller, deve-se acrescentar `[Area("NomeDaArea")]` em cima da Controller.
+ - É possível configurar um novo layout dentro das `Area` utilizando a configuração de Shared, _ViewImports e _ViewStart; 
+ 
+ ## Alterando convenção Areas
+
+ Para alterar a convenção da aplicação buscar/usar `Areas`, deve-se utilizar a seguinte configuração:
+ ```
+ builder.Services.Configure<RazorViewEngineOptions>(opt =>
+{
+    opt.AreaViewLocationFormats.Clear();
+    opt.AreaViewLocationFormats.Add("/Modulos/{2}/Views/{1}/{0}.cshtml");
+    opt.AreaViewLocationFormats.Add("/Modulos/{2}/Views/Shared/{0}.cshtml");
+    opt.AreaViewLocationFormats.Add("/Modulos/Shared/{0}.cshtml");
+});
+ ```
+
+ No exemplo acima, o .NET irá procurar por módulos em vez de `Areas`.
