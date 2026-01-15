@@ -1,6 +1,6 @@
 import { Component, input, signal, inject } from '@angular/core';
 import { Child } from './child/child';
-import { NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage, UpperCasePipe, DatePipe, DecimalPipe, CurrencyPipe } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -8,7 +8,7 @@ import { CarService } from './car.service';
 
 @Component({
   selector: 'app-home',
-  imports: [Child, ReactiveFormsModule],
+  imports: [Child, ReactiveFormsModule, UpperCasePipe, DatePipe, DecimalPipe, CurrencyPipe],
   template: `
    <span>
     Hello {{city}}, {{currentDate}}
@@ -31,8 +31,9 @@ import { CarService } from './car.service';
   </form>
 
   <h2>Profile Form</h2>
-  <p>Name: {{ profileForm.value.name }}</p>
+  <p>Name: {{ profileForm.value.name | uppercase }}</p>
   <p>Email: {{ profileForm.value.email }}</p>
+
 
   <ul>
   @for(os of operatingSystens; track os.id){
@@ -67,6 +68,17 @@ import { CarService } from './car.service';
     <div>
       Cars: {{display}}
     </div>
+
+    <hr />
+
+    <div>
+      {{ today | date:'medium' }}
+      Number with "decimal" {{ num | number:"3.2-2" }}
+    </div>
+
+    <div>
+      Currency with "currency" {{ cost | currency: 'BRL'  }}
+    </div>
   `,
   styles: `
     :host {
@@ -76,6 +88,10 @@ import { CarService } from './car.service';
   `
 })
 export class Home {
+  today = new Date();
+  num = 103.1234;
+  cost = 4560.34;
+
   profileForm = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),

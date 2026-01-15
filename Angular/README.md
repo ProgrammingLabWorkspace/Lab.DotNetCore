@@ -586,7 +586,10 @@ No exemplo acima é definido que `name` será obrigatório; o campo `email` deve
 Para saber se o formulário está valido, basta acessar a propriedade `valid` da instância do `FormGroup`.
 `<button type="submit" [disabled]="!profileForm.valid">Submit</button>`
 
-# Injeção de dependência
+# Serviços
+Comando: `ng g service Servico`
+
+## Injeção de dependência
 
 Para definir que uma classe ou recurso é injetável deve-se utilizar o decorator `@Injectable`. Ex:
 ```
@@ -606,9 +609,41 @@ Para usar, basta import a função `inject`:
 Depois, basta obter o serviço da seguinte forma:
 `petRosterService = inject(PetRosterService);`
 
+# Pipes
+https://angular.dev/guide/templates/pipes
 
-## Services
+Funções puras do Angular que permitem formatar um determinado valor.
 
-Comando: `ng g service Servico`
+Ex:
+```
+import {UpperCasePipe} from '@angular/common';
+@Component({
+  ...
+  template: `{{ loudMessage | uppercase }}`,
+  imports: [UpperCasePipe],
+})
+export class App {
+  loudMessage = 'we think you are doing great!'
+}
+```
 
-**Parei em: https://angular.dev/tutorials/learn-angular/10-deferrable-views**
+
+### Formatando dados com pipes
+
+É possível passsar parâmetros extras para os pipes, o que permite aplicar uma formatação customizada.
+Ex:
+```
+template: `{{ date | date:'medium' }}`;
+```
+
+O exemplo acima formata a data para `Jun 15, 2015, 9:43:11 PM`
+
+```
+Number with "decimal" {{ num | number:"3.2-2" }}
+```
+O parâmetro de `DecimalPipe` é chamado de `digitsInfo` e possui o seguinte formato:
+`{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`
+
+No exemplo acima, o `pipe` irá fazer com que `loudMessage` seja caixa alta.
+
+**Parei em: https://angular.dev/tutorials/learn-angular/24-create-a-pipe**
