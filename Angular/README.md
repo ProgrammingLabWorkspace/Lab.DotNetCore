@@ -586,6 +586,27 @@ No exemplo acima é definido que `name` será obrigatório; o campo `email` deve
 Para saber se o formulário está valido, basta acessar a propriedade `valid` da instância do `FormGroup`.
 `<button type="submit" [disabled]="!profileForm.valid">Submit</button>`
 
+# Injeção de dependência
+
+Para definir que uma classe ou recurso é injetável deve-se utilizar o decorator `@Injectable`. Ex:
+```
+  @Injectable({
+    providedIn: 'root',
+  })
+  class UserService {
+    // methods to retrieve and return data
+  }
+```
+
+Obs: `providedIn: 'root'` -> diz que o serviço pode ser acessado por toda a aplicação.
+
+Para usar, basta import a função `inject`:
+`import { inject } from '@angular/core';`
+
+Depois, basta obter o serviço da seguinte forma:
+`petRosterService = inject(PetRosterService);`
+
+
 ## Services
 
 Comando: `ng g service Servico`

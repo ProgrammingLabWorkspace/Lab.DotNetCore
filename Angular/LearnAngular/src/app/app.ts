@@ -1,9 +1,10 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, signal, inject } from '@angular/core';
 import { Child } from './child/child';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CarService } from './car.service';
 
 @Component({
   selector: 'app-home',
@@ -61,6 +62,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     @loading (minimum 2s) {
       <p>Loading</p>
     }
+
+    <hr />
+    <div>
+      Cars: {{display}}
+    </div>
   `,
   styles: `
     :host {
@@ -74,6 +80,10 @@ export class Home {
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
+
+
+  carService = inject(CarService);
+  display = this.carService.getCars().join(', ');
 
   handleSubmit() {
     alert(this.profileForm.value.name + ' | ' + this.profileForm.value.email);
