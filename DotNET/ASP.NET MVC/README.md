@@ -843,3 +843,25 @@ Classe - classe que implementa a Interface
     ```
         @inject MeuServico servico
     ```
+
+## Acessando o contêiner de DI
+
+- É feito através do `ServiceProvider`;
+
+- `CreateScope`não faz referência ao ciclo de vida (scoped). No caso, faz referência ao escopo de serviços registrados;
+```c#
+using(var serviceScope = ServiceProvider.CreateScope()){
+    var services = serviceScope.ServiceProvider;
+
+    var service = services.GetRequiredService<IMeuServico>();
+}
+```
+- É possível acessar os serviços antes da aplicação iniciar (program.cs). O `ServiceProvider` é obtido através do `app`;
+
+```c#
+using(var serviceScope = app.Services.CreateScope()){
+    var services = serviceScope.ServiceProvider;
+    
+    var service = services.GetRequiredService<IMeuServico>();
+}
+```
