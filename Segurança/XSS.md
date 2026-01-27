@@ -8,6 +8,17 @@ Com isso, o atacante pode, por exemplo, ler dados acessíveis pela página, alte
 
 Atacante insere um código JS malicioso que pega os cookies do usuários e os envia (através de requisição)para um de seus servidores. Tendo posse do cookie, o atacante pode conseguir se autenticar com a conta da pessoa facilmente simplesmente utilizando desse cookie que ele conseguiu roubar.
 
+# Mitigar
+
+- Tratar os dados do usuário como texto, não como HTML/JS;
+- Aplicar encode ao renderizar HTML;
+- Para editores rich text:
+    - Sanitizar os dados no servidor;
+    - Remover scripts, eventos inline (onclick etc), `javascript:` URLs, iframes;
+- Para cookies e sessões:
+    - Cookies de sessão com HttpOnly (JS não lê), Secure (só HTTPS) e SameSite (reduz CSRF);
+    - Evite guardar tokens sensíveis em `localStorage/sessionStorage` quando possível (porque XSS lê).
+
 # Referências
 
 - https://hackersec.com/o-que-e-cross-site-scripting-xss/;
